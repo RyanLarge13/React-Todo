@@ -25,21 +25,17 @@ const List = ({ user }) => {
     const theTodo = {
       value: todo,
     };
-    const response = await fetch(
-      `http://localhost:8080/${user.googleId}/${todo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(theTodo),
-      }
-    )
+    await fetch(`http://localhost:8080/${user.googleId}/${todo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(theTodo),
+    })
       .then((res) => res.json())
       .then((data) => {
-        return data;
+        setItems((prev) => [...prev, data.todos]);
       });
-    setItems((prev) => [...prev, response.todos]);
     setLoading(false);
   };
 
