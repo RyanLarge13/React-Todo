@@ -12,13 +12,19 @@ const AddButtons = ({ add }) => {
     setInput(value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    add(input);
+    setAddToDo(false);
+  };
+
   return (
     <>
       {addToDo ? (
         <motion.form
           className="add-the-doo"
           whileInView={{ opacity: 1, scale: [0, 1.1, 1] }}
-          onSubmit={() => add(input)}
+          onSubmit={handleSubmit}
         >
           <motion.input
             onChange={handleChange}
