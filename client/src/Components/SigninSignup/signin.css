@@ -1,0 +1,11 @@
+.signin-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.login {
+  width: 50vw;
+  border-radius: 1em;
+  box-shadow: 0 0.1em 0.5em 0 #000;
+  font-size: 2em; }

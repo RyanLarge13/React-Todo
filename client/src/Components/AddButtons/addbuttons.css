@@ -1,0 +1,31 @@
+@media (min-width: 400px) and (max-width: 1000px) {
+  .grid-container {
+    margin-top: 15%; } }
+
+.add-the-doo {
+  margin-top: 10%;
+  width: 90vw;
+  height: 90%; }
+  .add-the-doo input {
+    width: 100%;
+    padding: 0.25em;
+    font-size: 1.5em;
+    outline: none;
+    border: none;
+    border-radius: 0.25em;
+    box-shadow: 0 0.1em 0.25em 0 #000; }
+  .add-the-doo button {
+    padding: 0.25em 1em;
+    font-size: 1.25em;
+    border: none;
+    outline: none;
+    border-radius: 0.25em;
+    box-shadow: 0 0.1em 0.25em 0 #000;
+    margin-top: 1em; }
+
+.add {
+  max-width: 50vw;
+  padding: 1em 1.5em;
+  background-image: linear-gradient(45deg, #f857a6, #ff5858);
+  border-radius: 1em;
+  box-shadow: 0.1em 0.1em 0.5em 0 #000; }
