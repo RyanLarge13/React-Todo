@@ -34,7 +34,7 @@ const List = ({ user }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setItems((prev) => [...prev, data.todos]);
+        setItems((prev) => [...prev, data.todo]);
       });
     setLoading(false);
   };
