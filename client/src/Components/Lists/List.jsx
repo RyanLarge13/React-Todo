@@ -53,8 +53,11 @@ const List = ({ user }) => {
 
   return items.length < 1 ? (
     <>
-      <h1>Add A Todo!</h1>
-      <AddButtons add={(todo) => addTodo(todo)} />
+      <h1 className="no-todos-heading">Add A Todo!</h1>
+      <AddButtons className="add-when-none" add={(todo) => addTodo(todo)} />
+      {loading && (
+      	<SyncLoader />
+      	)}
     </>
   ) : (
     <>

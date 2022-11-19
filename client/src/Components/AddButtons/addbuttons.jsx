@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./addbuttons.scss";
 import { motion } from "framer-motion";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const AddButtons = ({ add }) => {
   const [addToDo, setAddToDo] = useState(false);
@@ -15,6 +16,7 @@ const AddButtons = ({ add }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     add(input);
+    setInput("");
     setAddToDo(false);
   };
 
@@ -26,6 +28,10 @@ const AddButtons = ({ add }) => {
           whileInView={{ opacity: 1, scale: [0, 1.1, 1] }}
           onSubmit={handleSubmit}
         >
+          <AiFillCloseCircle
+            className="close-input"
+            onClick={() => setAddToDo(false)}
+          />
           <motion.input
             onChange={handleChange}
             placeholder="Todo"
