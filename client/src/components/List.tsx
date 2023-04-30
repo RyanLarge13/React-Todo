@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { SyncLoader } from "react-spinners";
 import { Reorder } from "framer-motion";
-import AddButtons from "../AddButtons/addbuttons.jsx";
-import "./list.scss";
+import AddButtons from "./AddButtons";
 
 const List = ({ user }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/${user.googleId}/todos`, {
+    fetch(`http://localhost:8080/${user.id}/todos`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -18,14 +17,16 @@ const List = ({ user }) => {
         setItems(data.todos);
       });
     setLoading(false);
-  }, [user.googleId]);
+  }, [user.id]);
 
   const addTodo = async (todo) => {
     setLoading(true);
     const theTodo = {
       value: todo,
+      complete: false,
+      createdAt: new Date(),
     };
-    await fetch(`http://localhost:8080/${user.googleId}/${todo}`, {
+    await fetch(`http://localhost:8080/${user.id}/${todo}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,48 +52,35 @@ const List = ({ user }) => {
     setItems(newList);
   };
 
-  return items.length < 1 ? (
-    <>
-      <h1 className="no-todos-heading">Add A Todo!</h1>
-      <AddButtons className="add-when-none" add={(todo) => addTodo(todo)} />
-      {loading && (
-      	<SyncLoader />
-      	)}
-    </>
-  ) : (
-    <>
+  return (
+    <section className="w-full mt-10">
       <AddButtons add={(todo) => addTodo(todo)} />
-      <div className="to-do-list list-list">
-        <h2>Your List!</h2>
-        <div className="list-container">
-          {!loading ? (
-            <Reorder.Group
-              className="list"
-              axis="y"
-              values={items}
-              onReorder={setItems}
-            >
-              <h3>{user.name}</h3>
-              {items.map((item, index) => (
+      <div className="p-5 my-10 rounded-md shadow-md bg-gradient-to-r from-cyan-400 to-blue-300 w-[90%] mx-auto">
+        {!loading ? (
+          <Reorder.Group axis="y" values={items} onReorder={setItems}>
+            {items.length > 0 ? (
+              items.map((item, index) => (
                 <Reorder.Item
-                  className="item"
+                  className="p-5 my-5 rounded-md shadow-md bg-white flex justify-between items-center"
                   key={item._id}
                   value={item}
                   whileInView={{ scale: [1.1, 1.1, 0.9, 1] }}
                   whileTap={{ scale: 1.1 }}
                 >
                   <p>{index + 1}</p>
-                  <h1>{item.todo}</h1>
+                  <p className="mx-5">{item.todo}</p>
                   <AiFillCloseCircle onClick={() => deleteTodo(item)} />
                 </Reorder.Item>
-              ))}
-            </Reorder.Group>
-          ) : (
-            <SyncLoader />
-          )}
-        </div>
+              ))
+            ) : (
+              <p className="text-center text-2xl text-white">Fill Me!!</p>
+            )}
+          </Reorder.Group>
+        ) : (
+          <SyncLoader />
+        )}
       </div>
-    </>
+    </section>
   );
 };
 

@@ -23,10 +23,12 @@ app.get("/:userId/todos", async (req, res) => {
 });
 
 app.post("/:userId/:todo", async (req, res) => {
-  const todo = req.body.value;
+  const { value, complete, createdAt } = req.body;
   const newTodo = await Todos.create({
     userId: req.params.userId,
-    todo: todo,
+    todo: value,
+    complete, 
+    createdAt, 
   });
   newTodo.save();
   res.status(200).json({ todo: newTodo });
