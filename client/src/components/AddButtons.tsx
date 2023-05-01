@@ -1,7 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
+import PropTypes from "prop-types";
+
+AddButtons.propTypes = {
+  add: PropTypes.bool,
+};
 
 const AddButtons = ({ add }) => {
   const [addToDo, setAddToDo] = useState(false);

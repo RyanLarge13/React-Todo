@@ -1,4 +1,12 @@
+import React from "react"
 import List from "../List";
+import PropTypes from "prop-types"
+
+Home.propTypes = {
+	user: {
+		key: any
+	}
+}
 
 const Home = ({ user }) => {
 

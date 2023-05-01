@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import React from "react" 
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GitHubLogin from "react-github-login";

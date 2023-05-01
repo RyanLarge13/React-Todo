@@ -1,8 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { SyncLoader } from "react-spinners";
 import { Reorder } from "framer-motion";
 import AddButtons from "./AddButtons";
+import PropTypes from "prop-types"
+
+List.propTypes = {
+	user: {
+		key: any
+	}
+}
 
 const List = ({ user }) => {
   const [items, setItems] = useState([]);

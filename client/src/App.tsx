@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SyncLoader } from "react-spinners";
 import Axios from "axios";
 import Header from "./components/Header";
