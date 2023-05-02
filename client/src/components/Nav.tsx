@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 type props = {
   user: {
-    id: string;
+    id: string | boolean;
   };
   setUser: Function;
   setNav: Function;

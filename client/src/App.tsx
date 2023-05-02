@@ -6,7 +6,7 @@ import Home from "./components/Pages/Home";
 import Signin from "./components/Signin";
 
 const App = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser]: any = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || false);
   const [loading, setLoading] = useState(true);
 

@@ -1,6 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import GitHubLogin from "react-github-login";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import GitHubLogin from "react-github-login";
 
 type props = {
   setToken: Function;
@@ -15,12 +15,12 @@ const Signin = ({ setToken }: props) => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  const responseFacebook = (res: any) => {
-    console.log(res);
-  };
+  // const responseFacebook = (res: any) => {
+  //   console.log(res);
+  // };
 
-  const onSuccess = (response: any) => console.log(response);
-  const onFailure = (response: any) => console.error(response);
+  // const onSuccess = (response: any) => console.log(response);
+  // const onFailure = (response: any) => console.error(response);
 
   return (
     <section className="mt-40 flex flex-col justify-center items-center">
@@ -32,7 +32,7 @@ const Signin = ({ setToken }: props) => {
         >
           Google
         </button>
-        <FacebookLogin
+        {/* <FacebookLogin
           appId="950003889525144"
           autoLoad={false}
           callback={responseFacebook}
@@ -54,7 +54,7 @@ const Signin = ({ setToken }: props) => {
           redirectUri="http://localhost:5173"
           buttonText="Github"
           className="w-[50%] p-3 rounded-md shadow-md text-white github"
-        />
+        /> */}
       </div>
     </section>
   );

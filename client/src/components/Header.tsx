@@ -4,11 +4,9 @@ import { BiMenuAltRight } from "react-icons/bi";
 import Nav from "./Nav";
 
 type props = {
-  user:
-    | {
-        id: string;
-      }
-    | boolean;
+  user: {
+    id: string;
+  };
   setUser: Function;
 };
 
