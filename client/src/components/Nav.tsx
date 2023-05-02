@@ -1,7 +1,14 @@
-import React from "react"
 import { motion } from "framer-motion";
 
-const Nav = ({ user, setUser, setNav }) => {
+type props = {
+  user: {
+    id: string;
+  };
+  setUser: Function;
+  setNav: Function;
+};
+
+const Nav = ({ user, setUser, setNav }: props) => {
   const logOut = () => {
     setNav(false);
     setUser(false);

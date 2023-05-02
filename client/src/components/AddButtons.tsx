@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { motion } from "framer-motion";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
-import PropTypes from "prop-types";
 
-AddButtons.propTypes = {
-  add: PropTypes.bool,
+type props = {
+  add: Function;
 };
 
-const AddButtons = ({ add }) => {
+const AddButtons = ({ add }: props) => {
   const [addToDo, setAddToDo] = useState(false);
   const [input, setInput] = useState("");
 
-  const handleChange = (e) => {
-    const value = e.target.value;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const value: string = e.target.value;
     setInput(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
     add(input);
     setInput("");

@@ -1,9 +1,12 @@
-import React from "react" 
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GitHubLogin from "react-github-login";
 
-const Signin = ({ setToken }) => {
+type props = {
+  setToken: Function;
+};
+
+const Signin = ({ setToken }: props) => {
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       localStorage.setItem("token", codeResponse.access_token);
@@ -12,12 +15,12 @@ const Signin = ({ setToken }) => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  const responseFacebook = (res) => {
+  const responseFacebook = (res: any) => {
     console.log(res);
   };
 
-  const onSuccess = (response) => console.log(response);
-  const onFailure = (response) => console.error(response);
+  const onSuccess = (response: any) => console.log(response);
+  const onFailure = (response: any) => console.error(response);
 
   return (
     <section className="mt-40 flex flex-col justify-center items-center">
@@ -35,7 +38,7 @@ const Signin = ({ setToken }) => {
           callback={responseFacebook}
           field="name,picture"
           scope="public_profile"
-          render={(renderProps) => (
+          render={(renderProps: any) => (
             <button
               onClick={renderProps.onClick}
               className="w-[50%] my-10 p-3 rounded-md shadow-md text-white facebook"

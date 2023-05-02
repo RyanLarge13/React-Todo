@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { SyncLoader } from "react-spinners";
 import { Reorder } from "framer-motion";
 import AddButtons from "./AddButtons";
-import PropTypes from "prop-types"
 
-List.propTypes = {
-	user: {
-		key: any
-	}
-}
+type props = {
+  user: {
+    id: string;
+  };
+};
 
-const List = ({ user }) => {
-  const [items, setItems] = useState([]);
+type todo = {
+  _id: string;
+  todo: string;
+  complete: boolean;
+  createdAt: Date;
+};
+
+const List = ({ user }: props) => {
+  const [items, setItems]: any = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +32,7 @@ const List = ({ user }) => {
     setLoading(false);
   }, [user.id]);
 
-  const addTodo = async (todo) => {
+  const addTodo = async (todo: string) => {
     setLoading(true);
     const theTodo = {
       value: todo,
@@ -42,12 +48,12 @@ const List = ({ user }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setItems((prev) => [...prev, data.todo]);
+        setItems((prev: []): [] | any => [...prev, data.todo]);
       });
     setLoading(false);
   };
 
-  const deleteTodo = async (item) => {
+  const deleteTodo = async (item: todo) => {
     await fetch(`http://localhost:8080/delete/${item._id}`, {
       method: "DELETE",
     })
@@ -55,18 +61,18 @@ const List = ({ user }) => {
       .then((data) => {
         console.log(data.message);
       });
-    const newList = items.filter((i) => i._id !== item._id);
+    const newList = items.filter((i: todo) => i._id !== item._id);
     setItems(newList);
   };
 
   return (
     <section className="w-full mt-10">
-      <AddButtons add={(todo) => addTodo(todo)} />
+      <AddButtons add={(todo: string) => addTodo(todo)} />
       <div className="p-5 my-10 rounded-md shadow-md bg-gradient-to-r from-cyan-400 to-blue-300 w-[90%] mx-auto">
         {!loading ? (
           <Reorder.Group axis="y" values={items} onReorder={setItems}>
             {items.length > 0 ? (
-              items.map((item, index) => (
+              items.map((item: todo, index: number) => (
                 <Reorder.Item
                   className="p-5 my-5 rounded-md shadow-md bg-white flex justify-between items-center"
                   key={item._id}

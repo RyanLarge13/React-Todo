@@ -1,19 +1,18 @@
-import Nav from "./Nav";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
-import PropTypes from "prop-types"
+import Nav from "./Nav";
 
-Header.propTypes = {
-	user: {
-		key: any
-	}, 
-	serUser: {
-		key: any
-	} | boolean
-}
+type props = {
+  user:
+    | {
+        id: string;
+      }
+    | boolean;
+  setUser: Function;
+};
 
-const Header = ({ user, setUser }) => {
+const Header = ({ user, setUser }: props) => {
   const [nav, setNav] = useState(false);
 
   return (
