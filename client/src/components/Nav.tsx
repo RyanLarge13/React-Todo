@@ -13,6 +13,8 @@ const Nav = ({ user, setUser, setNav }: props) => {
     setNav(false);
     setUser(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("githubToken");
+    window.location.href = "/";
   };
 
   return (

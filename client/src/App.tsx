@@ -8,6 +8,12 @@ import Signin from "./components/Signin";
 const App = () => {
   const [user, setUser]: any = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || false);
+  const [githubToken, setGithubToken] = useState(
+    localStorage.getItem("githubToken") || false
+  );
+  // const [facebookToken, setFacebookToken] = useState(
+  //   localStorage.getItem("facebookToken") || false
+  // );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,11 +36,25 @@ const App = () => {
           console.log(err);
         });
     }
+    if (githubToken) {
+      Axios.get("http://localhost:8080/github-user-data", {
+        headers: {
+          Authorization: `Bearer ${githubToken}`,
+        },
+      })
+        .then((res) => {
+          setUser(res);
+        })
+        .catch((err) => {
+          setGithubToken(false);
+          localStorage.removeItem("githubToken");
+          console.log(err);
+        });
+    }
     if (!token) {
       setLoading(false);
-      console.log("No token");
     }
-  }, [token]);
+  }, [token, githubToken]);
 
   return (
     <main className="mt-20">

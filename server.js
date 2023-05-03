@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import parser from "body-parser";
 import mongoose from "mongoose";
+import fetch from "node-fetch";
 import { connectDB } from "./config/db.js";
 import { Todos } from "./schemas/todoSchema.js";
 
@@ -27,8 +28,8 @@ app.post("/:userId/:todo", async (req, res) => {
   const newTodo = await Todos.create({
     userId: req.params.userId,
     todo: value,
-    complete, 
-    createdAt, 
+    complete,
+    createdAt,
   });
   newTodo.save();
   res.status(200).json({ todo: newTodo });
@@ -40,6 +41,43 @@ app.delete("/delete/:todoId", (req, res) => {
     if (err) console.log(err);
     else res.status(200).json({ message: docs });
   });
+});
+
+//Github login routes ....
+
+app.get("/fetch-git-token", async (req, res) => {
+  const code = req.query.code;
+  const params = `?client_id=${process.env.GITHUB_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`;
+  await fetch(`https://github.com/login/oauth/access_token${params}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/github-user-data", async (req, res) => {
+  req.get("Authorization");
+  await fetch(`https://api.github.com/user`, {
+    method: "GET",
+    headers: {
+      Authorization: req.get("Authorization"),
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.listen(port, "0.0.0.0", () =>

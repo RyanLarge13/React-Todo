@@ -1,12 +1,27 @@
+import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-// import GitHubLogin from "react-github-login";
+import Axios from "axios";
 
 type props = {
   setToken: Function;
 };
 
 const Signin = ({ setToken }: props) => {
+  useEffect(() => {
+    const query = window.location.search;
+    const urlParams = new URLSearchParams(query);
+    const codeParam = urlParams.get("code");
+    if (codeParam) {
+      Axios.get(`http://localhost:8080/fetch-git-token?code=${codeParam}`)
+        .then((res: any) => {
+          localStorage.setItem("githubToken", res.access_token);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       localStorage.setItem("token", codeResponse.access_token);
@@ -15,12 +30,13 @@ const Signin = ({ setToken }: props) => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  // const responseFacebook = (res: any) => {
-  //   console.log(res);
-  // };
-
-  // const onSuccess = (response: any) => console.log(response);
-  // const onFailure = (response: any) => console.error(response);
+  const githubLogin = () => {
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${
+        import.meta.env.VITE_GITHUB_ID
+      }`
+    );
+  };
 
   return (
     <section className="mt-40 flex flex-col justify-center items-center">
@@ -32,29 +48,12 @@ const Signin = ({ setToken }: props) => {
         >
           Google
         </button>
-        {/* <FacebookLogin
-          appId="950003889525144"
-          autoLoad={false}
-          callback={responseFacebook}
-          field="name,picture"
-          scope="public_profile"
-          render={(renderProps: any) => (
-            <button
-              onClick={renderProps.onClick}
-              className="w-[50%] my-10 p-3 rounded-md shadow-md text-white facebook"
-            >
-              Facebook
-            </button>
-          )}
-        />
-        <GitHubLogin
-          clientId="Iv1.e582d78f4ad106be"
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          redirectUri="http://localhost:5173"
-          buttonText="Github"
+        <button
+          onClick={() => githubLogin()}
           className="w-[50%] p-3 rounded-md shadow-md text-white github"
-        /> */}
+        >
+          Github
+        </button>
       </div>
     </section>
   );
