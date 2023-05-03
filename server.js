@@ -13,8 +13,8 @@ connectDB();
 const app = express();
 const port = 8080;
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5173/",
+  "http://localhost:5174",
+  "http://localhost:5174/",
   "https://react-todo-production-df51.up.railway.app/",
   "https://react-todo-production-df51.up.railway.app",
 ];
