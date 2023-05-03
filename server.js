@@ -12,8 +12,27 @@ connectDB();
 
 const app = express();
 const port = 8080;
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5173/",
+  "https://react-todo-production-df51.up.railway.app/",
+  "https://react-todo-production-df51.up.railway.app",
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        let message =
+          "The CORS policy for this application doesn’t allow access from origin " +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
-app.use(cors());
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
 
@@ -52,6 +71,7 @@ app.get("/fetch-git-token", async (req, res) => {
     method: "POST",
     headers: {
       Accept: "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   })
     .then((res) => res.json())
@@ -69,6 +89,7 @@ app.get("/github-user-data", async (req, res) => {
     method: "GET",
     headers: {
       Authorization: req.get("Authorization"),
+      "Access-Control-Allow-Origin": "*",
     },
   })
     .then((res) => res.json())

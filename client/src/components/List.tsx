@@ -22,9 +22,12 @@ const List = ({ user }: props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/${user.id}/todos`, {
-      method: "GET",
-    })
+    fetch(
+      `https://react-todo-production-df51.up.railway.app/${user.id}/todos`,
+      {
+        method: "GET",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setItems(data.todos);
@@ -39,13 +42,16 @@ const List = ({ user }: props) => {
       complete: false,
       createdAt: new Date(),
     };
-    await fetch(`http://localhost:8080/${user.id}/${todo}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(theTodo),
-    })
+    await fetch(
+      `https://react-todo-production-df51.up.railway.app/${user.id}/${todo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(theTodo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setItems((prev: []): [] | any => [...prev, data.todo]);
@@ -54,9 +60,12 @@ const List = ({ user }: props) => {
   };
 
   const deleteTodo = async (item: todo) => {
-    await fetch(`http://localhost:8080/delete/${item._id}`, {
-      method: "DELETE",
-    })
+    await fetch(
+      `https://react-todo-production-df51.up.railway.app/${item._id}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data.message);
