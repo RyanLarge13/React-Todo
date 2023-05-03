@@ -37,13 +37,17 @@ const App = () => {
         });
     }
     if (githubToken) {
-      Axios.get("http://localhost:8080/github-user-data", {
-        headers: {
-          Authorization: `Bearer ${githubToken}`,
-        },
-      })
+      Axios.get(
+        "https://react-todo-production-df51.up.railway.app/github-user-data",
+        {
+          headers: {
+            Authorization: `Bearer ${githubToken}`,
+          },
+        }
+      )
         .then((res) => {
           setUser(res);
+          window.location.href = "/";
         })
         .catch((err) => {
           setGithubToken(false);

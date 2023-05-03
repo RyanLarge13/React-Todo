@@ -12,7 +12,9 @@ const Signin = ({ setToken }: props) => {
     const urlParams = new URLSearchParams(query);
     const codeParam = urlParams.get("code");
     if (codeParam) {
-      Axios.get(`http://localhost:8080/fetch-git-token?code=${codeParam}`)
+      Axios.get(
+        `https://react-todo-production-df51.up.railway.app/fetch-git-token?code=${codeParam}`
+      )
         .then((res: any) => {
           localStorage.setItem("githubToken", res.access_token);
         })
