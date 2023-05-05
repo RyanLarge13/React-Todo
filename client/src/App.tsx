@@ -33,6 +33,8 @@ const App = () => {
           setLoading(false);
         })
         .catch((err) => {
+        	setToken(false)
+        	localStorage.removeItem("token")
           console.log(err);
         });
     }

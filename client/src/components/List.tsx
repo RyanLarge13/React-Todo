@@ -33,7 +33,7 @@ const List = ({ user }: props) => {
         setItems(data.todos);
       });
     setLoading(false);
-  }, [user.id]);
+  }, [user]);
 
   const addTodo = async (todo: string) => {
     setLoading(true);
@@ -95,7 +95,7 @@ const List = ({ user }: props) => {
                 </Reorder.Item>
               ))
             ) : (
-              <p className="text-center text-2xl text-white">Fill Me!!</p>
+              <p className="text-center text-2xl text-white">{user.id}</p>
             )}
           </Reorder.Group>
         ) : (
