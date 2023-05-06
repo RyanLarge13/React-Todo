@@ -20,14 +20,13 @@ type todo = {
 const List = ({ user }: props) => {
   const [items, setItems]: any = useState([]);
   const [loading, setLoading] = useState(true);
+  const productionUrl = "https://react-todo-production-df51.up.railway.app";
+  const devUrl = "http://localhost:8080";
 
   useEffect(() => {
-    fetch(
-      `https://react-todo-production-df51.up.railway.app/${user.id}/todos`,
-      {
-        method: "GET",
-      }
-    )
+    fetch(`${devUrl}/${user.id}/todos`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems(data.todos);
@@ -42,16 +41,13 @@ const List = ({ user }: props) => {
       complete: false,
       createdAt: new Date(),
     };
-    await fetch(
-      `https://react-todo-production-df51.up.railway.app/${user.id}/${todo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(theTodo),
-      }
-    )
+    await fetch(`${devUrl}/${user.id}/${todo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(theTodo),
+    })
       .then((res) => res.json())
       .then((data) => {
         setItems((prev: []): [] | any => [...prev, data.todo]);
@@ -60,12 +56,9 @@ const List = ({ user }: props) => {
   };
 
   const deleteTodo = async (item: todo) => {
-    await fetch(
-      `https://react-todo-production-df51.up.railway.app/${item._id}`,
-      {
-        method: "DELETE",
-      }
-    )
+    await fetch(`${devUrl}/${item._id}`, {
+      method: "DELETE",
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data.message);

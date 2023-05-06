@@ -40,7 +40,7 @@ const App = () => {
     }
     if (githubToken) {
       Axios.get(
-        "https://react-todo-production-df51.up.railway.app/github-user-data",
+        "http://localhost:8080/github-user-data",
         {
           headers: {
             Authorization: `Bearer ${githubToken}`,

@@ -11,7 +11,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5174/",
