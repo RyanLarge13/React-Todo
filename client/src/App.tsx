@@ -49,7 +49,6 @@ const App = () => {
       )
         .then((res) => {
           setUser(res);
-          window.location.href = "/";
         })
         .catch((err) => {
           setGithubToken(false);

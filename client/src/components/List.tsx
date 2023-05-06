@@ -20,7 +20,7 @@ type todo = {
 const List = ({ user }: props) => {
   const [items, setItems]: any = useState([]);
   const [loading, setLoading] = useState(true);
-  const productionUrl = "https://react-todo-production-df51.up.railway.app";
+  //const productionUrl = "https://react-todo-production-df51.up.railway.app";
   const devUrl = "http://localhost:8080";
 
   useEffect(() => {

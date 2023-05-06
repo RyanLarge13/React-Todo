@@ -13,7 +13,7 @@ const Signin = ({ setToken }: props) => {
     const codeParam = urlParams.get("code");
     if (codeParam) {
       Axios.get(
-        `http://localhost:5173/fetch-git-token?code=${codeParam}`
+        `http://localhost:8080/fetch-git-token?code=${codeParam}`
       )
         .then((res: any) => {
           localStorage.setItem("githubToken", res.access_token);
