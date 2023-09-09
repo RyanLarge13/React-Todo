@@ -33,20 +33,17 @@ const App = () => {
           setLoading(false);
         })
         .catch((err) => {
-        	setToken(false)
-        	localStorage.removeItem("token")
+          setToken(false);
+          localStorage.removeItem("token");
           console.log(err);
         });
     }
     if (githubToken) {
-      Axios.get(
-        "http://localhost:8080/github-user-data",
-        {
-          headers: {
-            Authorization: `Bearer ${githubToken}`,
-          },
-        }
-      )
+      Axios.get("http://localhost:8080/github-user-data", {
+        headers: {
+          Authorization: `Bearer ${githubToken}`,
+        },
+      })
         .then((res) => {
           setUser(res);
         })
@@ -65,7 +62,9 @@ const App = () => {
     <main className="mt-20">
       <Header user={user} setUser={setUser} />
       {loading ? (
-        <SyncLoader />
+        <div className="flex justify-center items-center h-screen">
+          <SyncLoader />
+        </div>
       ) : (
         <section className="mt-20">
           {user ? <Home user={user} /> : <Signin setToken={setToken} />}

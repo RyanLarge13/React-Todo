@@ -36,3 +36,21 @@
     #161b22 66%
   );
 }
+
+.discord {
+  background-image: linear-gradient(
+    45deg,
+    #424549 33%,
+    #7289da 33% 66%,
+    #1e2124 66%
+  );
+}
+
+.apple {
+  background-image: linear-gradient(
+    45deg,
+    #ffffff 33%,
+    #a3aaae 33% 66%,
+    #000000 66%
+  );
+}
