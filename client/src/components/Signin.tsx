@@ -8,6 +8,11 @@ type props = {
 };
 
 const Signin = ({ setToken }: props) => {
+  const DISCORD_API: string = import.meta.env.VITE_DISCORD_API;
+  const DISCORD_SECRET = import.meta.env.VITE_DISCORD_CLIENT_SECRET;
+  const CLIENT_ID: string = import.meta.env.VITE_DISCORD_CLIENT_ID;
+  const REDIRECT_URI: string = import.meta.env.VITE_DISCORD_REDIRECT_URI;
+
   useEffect(() => {
     const query: string = window.location.search;
     const urlParams = new URLSearchParams(query);
@@ -39,7 +44,36 @@ const Signin = ({ setToken }: props) => {
     );
   };
 
-  const facebookLogin = () => {};
+  const handleDiscordLogin = () => {
+    console.log("Clicked");
+    window.location.href = `${DISCORD_API}/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
+  };
+
+  useEffect(() => {
+    const handleCallback = async () => {
+      const code = new URLSearchParams(window.location.search).get("code");
+
+      if (code) {
+        try {
+          const response = await Axios.post(`${DISCORD_API}/oauth2/token`, {
+            client_id: CLIENT_ID,
+            client_secret: DISCORD_SECRET,
+            code,
+            grant_type: "authorization_code",
+            redirect_uri: REDIRECT_URI,
+          });
+
+          const accessToken = response.data.access_token;
+
+          console.log(accessToken);
+        } catch (error) {
+          console.error("Error exchanging code for access token:", error);
+        }
+      }
+    };
+
+    handleCallback();
+  }, [history]);
 
   return (
     <section className="mt-40 flex flex-col justify-center items-center">
@@ -58,7 +92,7 @@ const Signin = ({ setToken }: props) => {
           Github
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => handleDiscordLogin()}
           className="w-[50%] p-3 rounded-md shadow-md text-white discord"
         >
           Discord
